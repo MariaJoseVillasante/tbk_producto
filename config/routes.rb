@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
+  root to: "home#index"
   devise_for :usuarios
   devise_for :admins
-  get 'home/index'
-  root to: "home#index"
   resources :productos
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :carros, only: [] do
+    get :show, on: :collection
+    put :update, on: :collection
+    patch :update, on: :collection
+    post :pagar_con_paypal, on: :collection
+    get :procesar_pago_paypal, on: :collection
+    get :transaccion_efectiva_transbank, on: :collection
+    post :transaccion_efectiva_transbank, on: :collection
+  end
 end
